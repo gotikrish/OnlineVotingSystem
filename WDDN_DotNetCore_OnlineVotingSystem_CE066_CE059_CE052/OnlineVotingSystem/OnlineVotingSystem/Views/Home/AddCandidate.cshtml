@@ -1,0 +1,54 @@
+﻿@model OnlineVotingSystem.ViewModels.CandidateViewModel
+
+@{
+    ViewData["Title"] = "AddCandidate";
+}
+@if (ViewData["message"] != null && (ViewData["message"] as string).Length != 0)
+{
+    <div class="alert alert-success" id="label">
+        @ViewData["message"]
+    </div>
+    <script>
+        let label = document.getElementById("label");
+        if (label.style.display !== "none") {
+            setTimeout(() => {
+                label.style.display = "none";
+            }, 5000);
+        }
+    </script>
+}
+<h1>Add Candidate</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="AddCandidate" asp-controller="Home">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo" class="col-form-label"></label>
+                <input asp-for="Photo" class="form-control-file" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Signature" class="col-form-label"></label>
+                <input asp-for="Signature" class="form-control-file" />
+                <span asp-validation-for="Signature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

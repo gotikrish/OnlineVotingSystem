@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OnlineVotingSystem.Models
+{
+    public interface ICandidateRepository
+    {
+        Candidate GetCandidate(int id);
+        IEnumerable<Candidate> GetAllCandidate();
+        Candidate AddCandidate(Candidate candidate);
+        Candidate UpdateCandidate(Candidate candidate);
+        Candidate DeleteCandidate(int id);
+    }
+}

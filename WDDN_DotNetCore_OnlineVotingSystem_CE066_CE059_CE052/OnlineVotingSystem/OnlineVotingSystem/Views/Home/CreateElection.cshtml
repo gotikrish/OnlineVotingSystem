@@ -1,0 +1,49 @@
+﻿@model OnlineVotingSystem.Models.Election
+
+@{
+    ViewData["Title"] = "CreateElection";
+}
+@if (ViewData["message"] != null && (ViewData["message"] as string).Length != 0)
+{
+    <div class="alert alert-success" id="label">
+        @ViewData["message"]
+    </div>
+}
+<h1>Create Election</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Home" asp-action="CreateElection">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultDate" class="control-label"></label>
+                <input asp-for="ResultDate" class="form-control" />
+                <span asp-validation-for="ResultDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    let label = document.getElementById("label");
+    if (label.style.display !== "none") {
+        setTimeout(() => {
+            label.style.display = "none";
+        }, 5000);
+    }
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
