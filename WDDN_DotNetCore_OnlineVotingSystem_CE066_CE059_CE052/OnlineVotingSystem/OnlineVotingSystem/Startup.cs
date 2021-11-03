@@ -27,6 +27,7 @@ namespace OnlineVotingSystem
             services.AddControllersWithViews();
             services.AddScoped<IElectionRepository, SqlElectionRepository>();
             services.AddScoped<ICandidateRepository, SqlCandidateRepository>();
+            services.AddScoped<IVoterRepository, SqlVoterRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

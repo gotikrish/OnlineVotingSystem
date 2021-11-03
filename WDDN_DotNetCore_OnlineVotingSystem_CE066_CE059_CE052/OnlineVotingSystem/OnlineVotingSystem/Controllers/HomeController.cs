@@ -17,12 +17,14 @@ namespace OnlineVotingSystem.Controllers
         private readonly IElectionRepository electionRepository;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ICandidateRepository candidateRepository;
+        private readonly IVoterRepository voterRepository;
 
-        public HomeController(IElectionRepository electionRepository, IWebHostEnvironment hostingEnvironment,ICandidateRepository candidateRepository)
+        public HomeController(IElectionRepository electionRepository, IWebHostEnvironment hostingEnvironment,ICandidateRepository candidateRepository, IVoterRepository voterRepository)
         {
             this.electionRepository = electionRepository;
             this._hostingEnvironment = hostingEnvironment;
             this.candidateRepository = candidateRepository;
+            this.voterRepository = voterRepository;
         }
         public IActionResult Index()
         {
@@ -50,8 +52,8 @@ namespace OnlineVotingSystem.Controllers
             string uniqueFileName = null;
             if (photo != null)
             {
-                string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images","candidate");
-                uniqueFileName = Guid.NewGuid().ToString()+ "_" + photo.FileName;
+                string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images","candidates");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
                 string filePath = Path.Combine(uploadFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
@@ -60,6 +62,23 @@ namespace OnlineVotingSystem.Controllers
             }
             return uniqueFileName;
         }
+
+        private string ProcessUploadFile1(IFormFile photo)
+        {
+            string uniqueFileName = null;
+            if (photo != null)
+            {
+                string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images", "voters");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    photo.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+
         [HttpGet]
         public ViewResult AddCandidate()
         {
@@ -83,6 +102,34 @@ namespace OnlineVotingSystem.Controllers
                 };
                 candidateRepository.AddCandidate(candidate);
                 ViewData["message"] = "Candidate Added SuccessFully...";
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult AddVoter()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddVoter(VoterViewModel model)
+        {
+            ViewData["message"] = "";
+            if (ModelState.IsValid)
+            {
+                string uniquePhotoName = ProcessUploadFile1(model.Photo);
+                string uniqueSignName = ProcessUploadFile1(model.Sign);
+                Voter voter = new Voter
+                {
+                    Name = model.Name,
+                    Age = model.Age,
+                    HasVoted = false,
+                    PhotoPath = uniquePhotoName,
+                    SignPath = uniqueSignName
+                };
+                voterRepository.ADD(voter);
+                ViewData["message"] = "Voter Added SuccessFully...";
             }
             return View(model);
         }
