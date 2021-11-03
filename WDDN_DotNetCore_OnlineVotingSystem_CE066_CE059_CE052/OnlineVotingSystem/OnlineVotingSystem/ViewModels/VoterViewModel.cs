@@ -20,8 +20,10 @@ namespace OnlineVotingSystem.ViewModels
         [Display(Name = "Mobile Number")]
         public string MobileNo { get; set; }
       
+        [Required]
         public IFormFile Photo { get; set; }
- 
+
+        [Required]
         public IFormFile Sign { get; set; }
     }
 }

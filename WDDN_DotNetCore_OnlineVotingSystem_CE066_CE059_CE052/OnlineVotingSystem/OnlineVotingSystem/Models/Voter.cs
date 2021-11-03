@@ -9,7 +9,6 @@ namespace OnlineVotingSystem.Models
 {
     public class Voter
     {
-        [Key]
         public int VoterId { get; set; }
         [Required]
         public string Name { get; set; }

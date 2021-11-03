@@ -26,8 +26,15 @@ using OnlineVotingSystem.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\yash\Desktop\Sem5-Labs\Project WDDN\Net CORE\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\OnlineVotingSystem\OnlineVotingSystem\Views\_ViewImports.cshtml"
+using OnlineVotingSystem.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9de233fbded44614936aefc3d4d772692edf0b4b", @"/Views/Home/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"be4ac2c64c0e964254eee68f6e1afbabfc884526", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2bb616c243d1c0f2eaf6ae71778b4d648fbfa735", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

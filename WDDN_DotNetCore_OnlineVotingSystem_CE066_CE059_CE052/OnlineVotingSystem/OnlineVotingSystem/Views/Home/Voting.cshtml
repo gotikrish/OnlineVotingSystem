@@ -1,0 +1,37 @@
+﻿@model OnlineVotingSystem.ViewModels.MyViewModel
+@{
+
+}
+
+@if (ViewData["message"] != null && (ViewData["message"] as string).Length != 0)
+{
+    <div class="alert alert-success" id="label">
+        @ViewData["message"]
+    </div>
+    <script>
+        let label = document.getElementById("label");
+        if (label.style.display !== "none") {
+            setTimeout(() => {
+                label.style.display = "none";
+            }, 5000);
+        }
+    </script>
+}
+
+<div>
+    <br />
+    <br />
+    <br />
+    <form asp-action="Voting" asp-controller="Home" class="m-auto">
+        <select asp-for="CID" asp-items="@Model.Candidates">
+           <option>Please select one</option>
+        </select>
+        <br />
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Vote" class="btn btn-success" />
+        </div>
+    </form>
+    <br />
+    <br />
+</div>

@@ -304,3 +304,4 @@ C:\Users\yash\Desktop\Sem5-Labs\Project WDDN\Net CORE\WDDN_DotNetCore_OnlineVoti
 C:\Users\yash\Desktop\Sem5-Labs\Project WDDN\Net CORE\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\OnlineVotingSystem\OnlineVotingSystem\obj\Debug\netcoreapp3.1\OnlineVotingSystem.pdb
 C:\Users\yash\Desktop\Sem5-Labs\Project WDDN\Net CORE\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\OnlineVotingSystem\OnlineVotingSystem\obj\Debug\netcoreapp3.1\OnlineVotingSystem.genruntimeconfig.cache
 C:\Users\yash\Desktop\Sem5-Labs\Project WDDN\Net CORE\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\OnlineVotingSystem\OnlineVotingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Home\AddVoter.cshtml.g.cs
+C:\Users\yash\Desktop\Sem5-Labs\Project WDDN\Net CORE\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\OnlineVotingSystem\OnlineVotingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Home\Voting.cshtml.g.cs

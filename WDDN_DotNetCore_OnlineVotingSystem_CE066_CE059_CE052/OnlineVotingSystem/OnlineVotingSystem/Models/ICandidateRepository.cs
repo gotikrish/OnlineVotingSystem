@@ -10,7 +10,7 @@ namespace OnlineVotingSystem.Models
         Candidate GetCandidate(int id);
         IEnumerable<Candidate> GetAllCandidate();
         Candidate AddCandidate(Candidate candidate);
-        Candidate UpdateCandidate(Candidate candidate);
+        void UpdateCandidate(Candidate candidate);
         Candidate DeleteCandidate(int id);
     }
 }

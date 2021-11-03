@@ -22,7 +22,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddVoter" asp-controller="Home">
+        <form enctype="multipart/form-data" asp-action="AddVoter" asp-controller="Home">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="VoterId" class="control-label"></label>

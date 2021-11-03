@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineVotingSystem.Models;
 using OnlineVotingSystem.ViewModels;
 using System;
@@ -126,11 +127,50 @@ namespace OnlineVotingSystem.Controllers
                     Age = model.Age,
                     HasVoted = false,
                     PhotoPath = uniquePhotoName,
-                    SignPath = uniqueSignName
+                    SignPath = uniqueSignName,
+                    MobileNo = model.MobileNo,
+                    VoterId = model.VoterId
                 };
                 voterRepository.ADD(voter);
                 ViewData["message"] = "Voter Added SuccessFully...";
             }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Voting()
+        {
+            var model = candidateRepository.GetAllCandidate();
+            List<SelectListItem> c = new List<SelectListItem>();
+            foreach(var can in model)
+            {
+                c.Add(new SelectListItem { Text=can.Name , Value=can.Id+""});
+            }
+            var mymodel = new MyViewModel { Candidates = c };
+            return View(mymodel);
+        }
+
+        [HttpPost]
+        public IActionResult Voting(MyViewModel model)
+        {
+            ViewData["message"] = "";
+            //var vid = HttpContext.Session.GetString("VoterId");
+            var vid = 100;
+            Voter v = voterRepository.GetVoter(vid);
+            if (!v.HasVoted)
+            {
+                v.HasVoted = true;
+                voterRepository.UPDATE(v);
+                Candidate c = candidateRepository.GetCandidate(model.CID);
+                c.Votes = c.Votes + 1;
+                candidateRepository.UpdateCandidate(c);
+                ViewData["message"] = "Voted SuccessFully...";
+            }
+            else
+            {
+                ViewData["message"] = "Already Voted...";
+            }
+            
             return View(model);
         }
 

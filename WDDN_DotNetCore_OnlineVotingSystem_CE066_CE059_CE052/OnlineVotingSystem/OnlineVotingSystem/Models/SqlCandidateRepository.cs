@@ -26,17 +26,18 @@ namespace OnlineVotingSystem.Models
 
         IEnumerable<Candidate> ICandidateRepository.GetAllCandidate()
         {
-            throw new NotImplementedException();
+            return context.Candidate;
         }
 
         Candidate ICandidateRepository.GetCandidate(int id)
         {
-            throw new NotImplementedException();
+            return context.Candidate.Where(c => c.Id == id).FirstOrDefault<Candidate>();
         }
 
-        Candidate ICandidateRepository.UpdateCandidate(Candidate candidate)
+        void ICandidateRepository.UpdateCandidate(Candidate candidate)
         {
-            throw new NotImplementedException();
+            context.Candidate.Update(candidate);
+            context.SaveChanges();
         }
     }
 }
