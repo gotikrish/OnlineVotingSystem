@@ -19,13 +19,15 @@ namespace OnlineVotingSystem.Controllers
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ICandidateRepository candidateRepository;
         private readonly IVoterRepository voterRepository;
+        private readonly IResultRepository resultRepository;
 
-        public HomeController(IElectionRepository electionRepository, IWebHostEnvironment hostingEnvironment,ICandidateRepository candidateRepository, IVoterRepository voterRepository)
+        public HomeController(IElectionRepository electionRepository, IWebHostEnvironment hostingEnvironment,ICandidateRepository candidateRepository, IVoterRepository voterRepository, IResultRepository resultRepository)
         {
             this.electionRepository = electionRepository;
             this._hostingEnvironment = hostingEnvironment;
             this.candidateRepository = candidateRepository;
             this.voterRepository = voterRepository;
+            this.resultRepository = resultRepository;
         }
         public IActionResult Index()
         {
@@ -45,6 +47,14 @@ namespace OnlineVotingSystem.Controllers
             {
                 ViewData["message"] = "Election SuccessFully Created";
                 electionRepository.AddElection(model);
+                Result resultData = new Result
+                {
+                    EndDate = model.EndDate,
+                    ElectionName = model.Title,
+                    WinnerName = "Winner Not Declared Yet",
+                    Votes = 0
+                };
+                resultRepository.AddElection(resultData);
             }
             return View(model);
         }
@@ -171,6 +181,55 @@ namespace OnlineVotingSystem.Controllers
                 ViewData["message"] = "Already Voted...";
             }
             
+            return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult List()
+        {
+            IEnumerable<Candidate> candidates =  candidateRepository.GetAllCandidate();
+            return View(candidates);
+        }
+
+        [HttpPost,ActionName("List")]
+        public IActionResult DeclareResult()
+        {
+            ViewData["message"] = "";
+            var currentDate = DateTime.Now;
+            List<Election> elections =  electionRepository.GetAllElection().ToList();
+            foreach(var election in elections)
+            {
+                var endingDate = Convert.ToDateTime(election.EndDate);
+                var resultDate = Convert.ToDateTime(election.ResultDate);
+                if(currentDate < endingDate)
+                {
+                    ViewData["message"] = "Election has not ended yet";
+                }
+                else if(currentDate < resultDate)
+                {
+                    ViewData["message"] = $"Wait till {resultDate}";
+                }
+                else
+                {
+                    var result = resultRepository.GetResultBasedOnElectionEndDate(election.EndDate);
+                    var winner = candidateRepository.GetCandidateWithHighestVotes();
+                    result.EndDate = election.EndDate;
+                    result.ElectionName = election.Title;
+                    result.WinnerName = winner.Name;
+                    result.Votes = winner.Votes;
+                    
+                    resultRepository.UpdateResult(result);
+                    
+                    ViewData["message"] = $"Result has declared successfully...";
+                }
+                break;
+            }
+            return View(candidateRepository.GetAllCandidate());
+        }
+        [HttpGet]
+        public ViewResult Result()
+        {
+            var model = resultRepository.GetAllElectionResult();
             return View(model);
         }
 

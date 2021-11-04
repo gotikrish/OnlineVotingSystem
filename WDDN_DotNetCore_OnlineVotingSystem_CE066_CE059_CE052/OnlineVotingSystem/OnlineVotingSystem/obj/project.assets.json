@@ -8599,19 +8599,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yash\\.nuget\\packages\\": {}
+    "C:\\Users\\gotikrish\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yash\\Desktop\\Sem5-Labs\\Project WDDN\\Net CORE\\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\\OnlineVotingSystem\\OnlineVotingSystem\\OnlineVotingSystem.csproj",
+      "projectUniqueName": "C:\\Users\\gotikrish\\Desktop\\New folder\\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\\OnlineVotingSystem\\OnlineVotingSystem\\OnlineVotingSystem.csproj",
       "projectName": "OnlineVotingSystem",
-      "projectPath": "C:\\Users\\yash\\Desktop\\Sem5-Labs\\Project WDDN\\Net CORE\\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\\OnlineVotingSystem\\OnlineVotingSystem\\OnlineVotingSystem.csproj",
-      "packagesPath": "C:\\Users\\yash\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yash\\Desktop\\Sem5-Labs\\Project WDDN\\Net CORE\\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\\OnlineVotingSystem\\OnlineVotingSystem\\obj\\",
+      "projectPath": "C:\\Users\\gotikrish\\Desktop\\New folder\\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\\OnlineVotingSystem\\OnlineVotingSystem\\OnlineVotingSystem.csproj",
+      "packagesPath": "C:\\Users\\gotikrish\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gotikrish\\Desktop\\New folder\\WDDN_DotNetCore_OnlineVotingSystem_CE066_CE059_CE052\\OnlineVotingSystem\\OnlineVotingSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\yash\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gotikrish\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8662,6 +8662,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.18, 3.1.18]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -8670,7 +8676,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }

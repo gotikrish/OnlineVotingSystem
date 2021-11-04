@@ -7,7 +7,6 @@ namespace OnlineVotingSystem.Models
 {
     public interface IElectionRepository
     {
-        Election GetElection(int id);
         IEnumerable<Election> GetAllElection();
         Election AddElection(Election election);
         Election UpdateElection(Election election);

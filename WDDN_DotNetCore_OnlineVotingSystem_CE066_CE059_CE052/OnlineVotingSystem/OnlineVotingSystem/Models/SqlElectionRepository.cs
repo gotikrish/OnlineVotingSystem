@@ -26,12 +26,7 @@ namespace OnlineVotingSystem.Models
 
         IEnumerable<Election> IElectionRepository.GetAllElection()
         {
-            throw new NotImplementedException();
-        }
-
-        Election IElectionRepository.GetElection(int id)
-        {
-            throw new NotImplementedException();
+            return context.Election;
         }
 
         Election IElectionRepository.UpdateElection(Election election)

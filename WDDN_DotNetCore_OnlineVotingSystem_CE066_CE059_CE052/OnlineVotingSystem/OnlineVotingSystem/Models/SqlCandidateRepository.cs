@@ -34,6 +34,12 @@ namespace OnlineVotingSystem.Models
             return context.Candidate.Where(c => c.Id == id).FirstOrDefault<Candidate>();
         }
 
+        Candidate ICandidateRepository.GetCandidateWithHighestVotes()
+        {
+            Candidate candidate = (Candidate)context.Candidate.Where(c => c.Votes == (context.Candidate.Max(c => c.Votes))).FirstOrDefault();
+            return candidate;
+        }
+
         void ICandidateRepository.UpdateCandidate(Candidate candidate)
         {
             context.Candidate.Update(candidate);

@@ -14,5 +14,6 @@ namespace OnlineVotingSystem.Models
         public DbSet<Election> Election { get; set; }
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<Voter> Voter { get; set; }
+        public DbSet<Result> Results { get; set; }
     }
 }

@@ -1,8 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\images\candidate\**" />
+    <Compile Remove="wwwroot\images\voter\**" />
+    <Content Remove="wwwroot\images\candidate\**" />
+    <Content Remove="wwwroot\images\voter\**" />
+    <EmbeddedResource Remove="wwwroot\images\candidate\**" />
+    <EmbeddedResource Remove="wwwroot\images\voter\**" />
+    <None Remove="wwwroot\images\candidate\**" />
+    <None Remove="wwwroot\images\voter\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
@@ -14,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\candidate\" />
-    <Folder Include="wwwroot\images\voter\" />
+    <Folder Include="wwwroot\images\candidates\" />
+    <Folder Include="wwwroot\images\voters\" />
   </ItemGroup>
 
 </Project>

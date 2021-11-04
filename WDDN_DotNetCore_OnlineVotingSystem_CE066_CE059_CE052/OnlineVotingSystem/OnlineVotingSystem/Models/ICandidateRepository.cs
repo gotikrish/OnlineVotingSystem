@@ -8,6 +8,7 @@ namespace OnlineVotingSystem.Models
     public interface ICandidateRepository
     {
         Candidate GetCandidate(int id);
+        Candidate GetCandidateWithHighestVotes();
         IEnumerable<Candidate> GetAllCandidate();
         Candidate AddCandidate(Candidate candidate);
         void UpdateCandidate(Candidate candidate);
