@@ -11,5 +11,7 @@ namespace OnlineVotingSystem.Models
         Election AddElection(Election election);
         Election UpdateElection(Election election);
         Election DeleteElection(int id);
+
+        void DeleteAllElection();
     }
 }

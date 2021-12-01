@@ -12,5 +12,6 @@ namespace OnlineVotingSystem.Models
         public void ADD(Voter v);
 
         public void UPDATE(Voter v);
+        public void DeleteAll();
     }
 }

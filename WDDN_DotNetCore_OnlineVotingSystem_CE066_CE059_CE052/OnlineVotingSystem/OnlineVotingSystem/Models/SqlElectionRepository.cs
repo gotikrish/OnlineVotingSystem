@@ -12,6 +12,13 @@ namespace OnlineVotingSystem.Models
         {
             this.context = dbContext;
         }
+
+        public void DeleteAllElection()
+        {
+            context.Election.RemoveRange(context.Election);
+            context.SaveChanges();
+        }
+
         Election IElectionRepository.AddElection(Election election)
         {
             context.Election.Add(election);

@@ -45,5 +45,11 @@ namespace OnlineVotingSystem.Models
             context.Candidate.Update(candidate);
             context.SaveChanges();
         }
+
+        void ICandidateRepository.DeleteAllCandidate()
+        {
+            context.Candidate.RemoveRange(context.Candidate);
+            context.SaveChanges();
+        }
     }
 }

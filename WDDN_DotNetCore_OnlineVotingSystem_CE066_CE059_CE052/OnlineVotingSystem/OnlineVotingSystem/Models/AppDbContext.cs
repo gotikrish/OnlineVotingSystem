@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineVotingSystem.Models
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
@@ -15,5 +16,10 @@ namespace OnlineVotingSystem.Models
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<Voter> Voter { get; set; }
         public DbSet<Result> Results { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }

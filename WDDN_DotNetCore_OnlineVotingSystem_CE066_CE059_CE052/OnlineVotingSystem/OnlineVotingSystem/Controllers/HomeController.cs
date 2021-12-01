@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineVotingSystem.Models;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace OnlineVotingSystem.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IElectionRepository electionRepository;
@@ -20,14 +23,19 @@ namespace OnlineVotingSystem.Controllers
         private readonly ICandidateRepository candidateRepository;
         private readonly IVoterRepository voterRepository;
         private readonly IResultRepository resultRepository;
+        private readonly UserManager<IdentityUser> usermanager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public HomeController(IElectionRepository electionRepository, IWebHostEnvironment hostingEnvironment,ICandidateRepository candidateRepository, IVoterRepository voterRepository, IResultRepository resultRepository)
+        public HomeController(IElectionRepository electionRepository, IWebHostEnvironment hostingEnvironment,ICandidateRepository candidateRepository, IVoterRepository voterRepository, IResultRepository resultRepository,UserManager<IdentityUser> user1,RoleManager<IdentityRole> user2)
         {
             this.electionRepository = electionRepository;
             this._hostingEnvironment = hostingEnvironment;
             this.candidateRepository = candidateRepository;
             this.voterRepository = voterRepository;
             this.resultRepository = resultRepository;
+            this.usermanager = user1;
+            this.roleManager = user2;
+
         }
         public IActionResult Index()
         {
@@ -124,13 +132,40 @@ namespace OnlineVotingSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddVoter(VoterViewModel model)
+        public async Task<IActionResult> AddVoterAsync(VoterViewModel model)
         {
             ViewData["message"] = "";
             if (ModelState.IsValid)
             {
                 string uniquePhotoName = ProcessUploadFile1(model.Photo);
                 string uniqueSignName = ProcessUploadFile1(model.Sign);
+
+                var roleexist = await roleManager.RoleExistsAsync("user");
+                if(!roleexist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole("user"));
+                }
+
+                var user = new IdentityUser
+                {
+                    UserName = model.VoterId.ToString()
+                };
+
+                var result = await usermanager.CreateAsync(user, model.MobileNo);
+
+                if(result.Succeeded)
+                {
+                    await usermanager.AddToRoleAsync(user, "user");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+
+                }
+
                 Voter voter = new Voter
                 {
                     Name = model.Name,
@@ -142,7 +177,7 @@ namespace OnlineVotingSystem.Controllers
                     VoterId = model.VoterId
                 };
                 voterRepository.ADD(voter);
-                ViewData["message"] = "Voter Added SuccessFully...";
+                ViewData["message"] = "Voter Added SuccessFully... voter id  is your user name and mobile number is your password...";
             }
             return View(model);
         }
@@ -164,8 +199,8 @@ namespace OnlineVotingSystem.Controllers
         public IActionResult Voting(MyViewModel model)
         {
             ViewData["message"] = "";
-            //var vid = HttpContext.Session.GetString("VoterId");
-            var vid = 100;
+            var vid = int.Parse(HttpContext.Session.GetString("VoterId"));
+            //var vid = 100;
             Voter v = voterRepository.GetVoter(vid);
             if (!v.HasVoted)
             {
@@ -221,6 +256,9 @@ namespace OnlineVotingSystem.Controllers
                     resultRepository.UpdateResult(result);
                     
                     ViewData["message"] = $"Result has declared successfully...";
+                    candidateRepository.DeleteAllCandidate();
+                    electionRepository.DeleteAllElection();
+                    voterRepository.DeleteAll();
                 }
                 break;
             }

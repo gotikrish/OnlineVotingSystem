@@ -19,6 +19,12 @@ namespace OnlineVotingSystem.Models
             dbContext.SaveChanges();
         }
 
+        public void DeleteAll()
+        {
+            dbContext.Voter.RemoveRange(dbContext.Voter);
+            dbContext.SaveChanges();
+        }
+
         public Voter GetVoter(int id)
         {
             return dbContext.Voter.Where(v => v.VoterId == id).FirstOrDefault<Voter>();

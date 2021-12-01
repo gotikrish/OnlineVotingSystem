@@ -13,5 +13,6 @@ namespace OnlineVotingSystem.Models
         Candidate AddCandidate(Candidate candidate);
         void UpdateCandidate(Candidate candidate);
         Candidate DeleteCandidate(int id);
+        void DeleteAllCandidate();
     }
 }
